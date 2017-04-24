@@ -1,0 +1,13 @@
+body {
+	text-align:center;
+}
+.title {
+	color: red;
+	font-size:40px;
+}
+input[type=button] {
+	cursor:pointer;
+}
+.goto {
+	width:40px;
+}
