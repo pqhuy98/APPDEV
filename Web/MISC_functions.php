@@ -1,8 +1,8 @@
 <?php
 
 	$SECS_PER_DAY = 24*60*60;
-	$VALUES_PER_SEC = 10;
-	$WINDOW_SIZE = 60;
+	$VALUES_PER_SEC = 8;
+	$WINDOW_SIZE = 30;
 
 	function read_last_lines($filepath, $lines = 1, $adaptive = true) {
 		$f = @fopen($filepath, "rb");
@@ -33,7 +33,7 @@
 		foreach($dir as $d) {
 			if (empty($d)) continue;
 			$cur.=$d."/";
-			if (!file_exist($cur)) {
+			if (!file_exists($cur)) {
 				mkdir($cur,$chmod);
 			}
 		}
@@ -51,7 +51,7 @@
 	}
 
 	function _get($file, $position, $length) {
-		$f = fopen($file,"rw+");
+		$f = fopen($file,"r+");
 		fseek($f,$position,SEEK_SET);
 		$res = fread($f,$length);
 		return $res;
@@ -68,20 +68,22 @@
 	}
 
 	function putSeconds($date, $time, $data) {
+		global $SECS_PER_DAY, $VALUES_PER_SEC, $WINDOW_SIZE;
+
 		$dir = "logdata/".$date."/";
 		makedir($dir,0775);
 		$filepath = $dir.$date.".bin";
 		if (!file_exists($filepath))
-			create_empty_file($filepath,SECS_PER_DAY*VALUES_PER_SEC);
-		
-		$t = hms_to_s($time);	//$t : $time in seconds, eg. 01:02:03 -> 1*60*60 + 2*60 + 3 = 3663
-		_put($filepath,$data,$t);
+			create_empty_file($filepath,$SECS_PER_DAY*$VALUES_PER_SEC);
+		_put($filepath,$data,$time*$VALUES_PER_SEC);
 	}
 
-	function getSeconds($date, $time, $count = 60) {
+	function getSeconds($date, $time, $count = 1) {
+		global $SECS_PER_DAY, $VALUES_PER_SEC, $WINDOW_SIZE;
+
 		$dir = "logdata/".$date."/";
-		$t = hms_to_s($time);
-		$chars = _get($dir.$date.".bin",$t,$VALUES_PER_SEC*$count);
+		$cnt = min($count, $SECS_PER_DAY-$time);
+		$chars = _get($dir.$date.".bin",$time*$VALUES_PER_SEC,$VALUES_PER_SEC*$cnt);
 		return $chars;
 	}
 
@@ -91,6 +93,7 @@
 	}
 
 	function checkTimeFormat($time) {
+		global $SECS_PER_DAY;
 		if (!is_numeric($time))
 			return false;
 		$t = intval($time);
@@ -98,23 +101,35 @@
 	}
 
 	function findRight($date, $time) {
+		global $SECS_PER_DAY, $VALUES_PER_SEC, $WINDOW_SIZE;
+
 		while ($time<$SECS_PER_DAY) {
 			$length = min($WINDOW_SIZE, $SECS_PER_DAY-$time);
 			$data = getSeconds($date,$time,$length);
-			if ($date !== str_repeat("\0",$length))
-				return $time;
+			$n = strlen($data);
+			for($i=0;$i<$n;$i++) {
+				if ($data[$i]!="\0") {
+					return $time+floor($i/$VALUES_PER_SEC);
+				}
+			}
 			$time+=$length;
 		}
 		return FALSE;
 	}
 
 	function findLeft($date, $time) {
+		global $SECS_PER_DAY, $VALUES_PER_SEC, $WINDOW_SIZE;
+
 		$time = min($SECS_PER_DAY-$WINDOW_SIZE,$time);
 		while ($time>-$WINDOW_SIZE) {
 			$time = max(0,$time);
 			$data = getSeconds($date,$time,$WINDOW_SIZE);
-			if ($data !== str_repeat("\0",$WINDOW_SIZE))
-				return $time;
+			$n = strlen($data);
+			for($i=$n-1;$i>=0;$i--) {
+				if ($data[$i]!="\0") {
+					return $time+floor($i/$VALUES_PER_SEC);
+				}
+			}
 			$time-=$WINDOW_SIZE;
 		}
 		return FALSE;

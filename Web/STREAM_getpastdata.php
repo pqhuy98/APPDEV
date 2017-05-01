@@ -1,6 +1,6 @@
 <?php
 	include "MISC_functions.php";
-	$filename = "logdata/".date("Y-M-d").".txt";
-	$lines = read_last_lines($filename,35);
+	$filename = "data/".date("Y-M-d").".txt";
+	$lines = read_last_lines($filename,$WINDOW_SIZE);
 	echo $lines;
 ?>
