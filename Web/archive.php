@@ -40,7 +40,7 @@
 	<?php
 		if ($date=="None") {
 			echo "<h2 class='menu'>Past records</h2>";
-			drawMenu();
+			drawMenu(true, "menu", "menu");
 		} else {
 			if ($time=="None") {
 				$time = findLeft($date,$SECS_PER_DAY-1);
