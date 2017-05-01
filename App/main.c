@@ -59,9 +59,9 @@ int main(int argc, char *argv[]){
 	*/
 	char* server_url;
 	if (argc<=1)
-		server_url = "http://www.cc.puv.fi/~e1601124/APPDEV/APP_save.php";
+		server_url = SERVER_URL;
 	else
-		server_url = "localhost/APPDEV/APP_save.php";
+		server_url = DEBUG_URL;
 
 	//Stuffs...
 	int i;
