@@ -12,6 +12,7 @@ and play the audio in real time.
 //Our libraries !
 #include "sound.h"
 #include "screen.h"
+#include "comm.h"
 
 int main(int argc, char *argv[]){
 	/**
