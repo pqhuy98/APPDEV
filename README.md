@@ -89,6 +89,4 @@ The application is not completed yet. A lot of improvements can be done to incre
   
   7. In the previous improvement, it's obvious that we cannot predict the time taken to deliver data to the server. So it would be practical to set `t` to be `2 * T`, where `T` is the average time of previous data deliveries. It can be x2, x3, x4 or x10... whatever does best.
 
-  8. ...
-
 Are those what I can think of ? If you have any new ideas, I would like to hear it ! Just send me an email `huypham060398@gmail.com`, and we can talk all day.
