@@ -9,7 +9,9 @@ var updateInterval = 1000;	//Normal interval for getLastest() is every 1 seconds
 var trueInterval = 1000;	//True length of an audio chunk : 1 seconds.
 var smallInterval = 500;
 
-var dataLength = 360;	//Chart X-axis size
+var WINDOW_SIZE = 30;
+var VALUES_PER_SEC = 8
+var dataLength = WINDOW_SIZE*VALUES_PER_SEC;	//Chart X-axis size
 var req = 5;
 
 //===================================================================
@@ -177,7 +179,7 @@ function toggleLagMode(x) {
 		var tmp = play;
 		play = false;
 		while (yNew.length>0)
-			updateChart();
+			Update();
 		play = tmp;
 	}
 	else
