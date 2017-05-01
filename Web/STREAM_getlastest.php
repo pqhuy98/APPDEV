@@ -1,4 +1,5 @@
 <?php
+	//Get newest data for streaming.
 	$filename = "STREAM_lastest.log";
 	if (!file_exists($filename))
 		echo "offline";

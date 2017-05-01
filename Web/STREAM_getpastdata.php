@@ -1,4 +1,5 @@
 <?php
+	//Get past data for streaming.
 	include "MISC_functions.php";
 	$filename = "data/".date("Y-M-d").".txt";
 	$lines = read_last_lines($filename,$WINDOW_SIZE);

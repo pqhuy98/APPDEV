@@ -1,4 +1,7 @@
 <?php
+//Receive data from application and save it log files.
+//Data format checking and security checking is not implemented yet.
+
 require "MISC_functions.php";
 if (isset($_POST["data"])) {
 	//Save stream log
@@ -12,34 +15,37 @@ if (isset($_POST["data"])) {
 	fwrite($fp,$record);
 	fclose($fp);
 
-	makedir("data/",0777);
-	
+	//Save log for streaming ==============================================
+	makedir("data/",0755);
 	$file = "data/$date.txt";
 	if (!file_exists($file))
 		$f = fopen($file,"w");
 	else $f = fopen($file,"a");
-
 	fwrite($f,$record."\n");
 	fclose($f);
-	
-	file_put_contents($file,read_last_lines($file,$WINDOW_SIZE)."\n");
 
-	//Save wav ============================================================
-	makedir("wavdata/",0777);
+	if (rand(1,100)<=1) { //With probability 1%
+		//Clean old contents, keep last $WINDOW_SIZE seconds.
+		file_put_contents($file,read_last_lines($file,$WINDOW_SIZE)."\n");
+	}
+
+	//Save .wav files=======================================================
+	makedir("wavdata/",0755);
 	$content = file_get_contents($_FILES["file"]["tmp_name"]);
 	file_put_contents("wavdata/data_$unique",$content);
 	chmod("wavdata/data_$unique",0755);
 
-	//Delete wave =========================================================
-	if (rand(1,10)<5) {
+	//Delete .wav files=====================================================
+	if (rand(1,100)<=20) {	//With probability 20%
 		$files = scandir("wavdata/");
 		foreach($files as $f) {
 			if ($f=="." || $f=="..") continue;
 			$last_mod = filemtime("wavdata/$f");
-			if (time()-$last_mod>20)
+			if (time()-$last_mod>20) //Delete last 20 seconds old .wav files
 				unlink("wavdata/$f");
 		}
 	}
+
 	//Save binary log =====================================================
 	$floats = explode(' ',trim($_POST["data"]));
 	$chars = "";

@@ -1,8 +1,10 @@
 <?php
 	/*
+		(Updated) CURRENTLY THIS FILE IS NOT USE.
+
 		Echo log data on date $_GET["date"], from time $_GET["from"] to time $_GET["to"].
-		If $_GET["from"] is not provided, it's suppose to be the file's begin.
-		If $_GET["to"] is not provided, it's suppose to be the file's end.
+		If $_GET["from"] is not provided, it's supposed to be the file's begin.
+		If $_GET["to"] is not provided, it's supposed to be the file's end.
 	*/
 
 	//Checking format ...

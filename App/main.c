@@ -54,14 +54,14 @@ int main(int argc, char *argv[]){
 
 	/*
 	Where is our server ?
-	$ ./wave.a      (no argument)                   --> Home server : bunnies.hopto.org
-	$ ./wave.a kfdg (any random string as argument) --> VAMK server.
+	$ ./wave.a      (no argument)                   --> VAMK server
+	$ ./wave.a kfdg (any random string as argument) --> local server (debug mode).
 	*/
 	char* server_url;
 	if (argc<=1)
-		server_url = "https://bunnies.hopto.org/pqhuy98/Projects/APPDEV/APP_save.php";
-	else
 		server_url = "http://www.cc.puv.fi/~e1601124/APPDEV/APP_save.php";
+	else
+		server_url = "localhost/APPDEV/APP_save.php";
 
 	//Stuffs...
 	int i;
