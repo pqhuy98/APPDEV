@@ -6,6 +6,8 @@ This application records sound by the microphone and send them to a web server v
   
 This application was firstly intented to be used to turn a Raspberry Pi with USB sound card and microphone into an acoustic sensor. However, the application can be used in most Linux system with a microphone, for many other purposes.
 
+Visualization is done by CanvasJS trial version.
+
 ## 1. Configuration Instruction
 
 **If you are going to use this application on a Raspberry Pi with USB sound card and microphone, this section is for you ! It will tell you how to configurate the USB sound card. Otherwise skip to section 2.**  
