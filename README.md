@@ -62,10 +62,10 @@ Compile the application from source code :
   2. Run `cd APPDEV/App`.
   3. Run `make` to compile the files.
   4. The application is compiled into executable file **wave.a** in this folder. Type `./wave.a` to run the program.
-  5. Open [this page](http://www.cc.puv.fi/~e1601124/APPDEV/) and enjoy !
+  5. Open [this page](https://pqhuy98.hopto.org/APPDEV/) and enjoy !
 
 ## 3. Application Modification
-The application use [VAMK server](http://www.cc.puv.fi/~e1601124/APPDEV/) as default. To modify the destination server, follow these instructions :  
+The application use [my server](https://pqhuy98.hopto.org/APPDEV/) as default. To modify the destination server, follow these instructions :  
   1. Create a folder in your webserver's `/var/www/html/`. For example : `/var/www/html/MyServer`.
   2. Copy all files from the folder `APPDEV/Web/` to your `/var/www/html/MyServer/` folder.
   3. Change to URL inside `comm.h` to your server's "APP_save.php" URL. For example, if your server domain name is `http://www.yourdomain.com`, change the line into :
