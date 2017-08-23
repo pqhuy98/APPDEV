@@ -1,4 +1,4 @@
-# Live Sound
+# Live Sound (course project)
 
 This application records sound by the microphone and send them to a web server via the Internet. The web server supports visualizing and playing recorded sound lively with few seconds latency. Currently support Linux OS.  
   
