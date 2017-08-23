@@ -1,7 +1,5 @@
 # Live Sound
 
-Github : https://github.com/pqhuy98/APPDEV
-
 This application records sound by the microphone and send them to a web server via the Internet. The web server supports visualizing and playing recorded sound lively with few seconds latency. Currently support Linux OS.  
   
 This application was firstly intented to be used to turn a Raspberry Pi with USB sound card and microphone into an acoustic sensor. However, the application can be used in most Linux system with a microphone, for many other purposes.
